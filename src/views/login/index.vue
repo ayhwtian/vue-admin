@@ -107,8 +107,9 @@ export default {
 
 <style lang="scss" scoped>
 .login_container {
-  background-color: #2b4b6b;
-  height: 100%;
+  width: 1920px;
+  height: 1080px;
+  background:linear-gradient(90deg, #667db6 0%,#0082c8 33%,#0082c8 66%,#667db6 100% );
   .login_box {
     width: 450px;
     height: 300px;
