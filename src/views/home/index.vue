@@ -1,6 +1,7 @@
 <template>
   <el-container>
-    <el-header>Header
+    <el-header>
+      Header
       <el-button type="primary">退出</el-button>
     </el-header>
     <el-container>
@@ -34,7 +35,6 @@ export default {
     text-align: center;
     line-height: 200px;
   }
-
   .el-main {
     background-color: #e9eef3;
     color: #333;
