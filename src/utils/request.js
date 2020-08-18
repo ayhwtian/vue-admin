@@ -37,6 +37,9 @@ intance.interceptors.request.use(
     // if (localStorage.getItem('Authorization')) {
     //   config.headers.Authorization = localStorage.getItem('Authorization');
     // }
+    if (sessionStorage.getItem('token')) {
+      config.headers.Authorization = sessionStorage.getItem('token');
+    }
     return config;
   },
   error => {

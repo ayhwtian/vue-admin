@@ -1,6 +1,7 @@
 // 导入封装好的axios实例
 import request from './request'
 
+
 const http = {
   /**
    * methods: 请求
@@ -40,5 +41,6 @@ const http = {
     return request(config)
   }
 }
+
 //导出
 export default http
