@@ -7,31 +7,67 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
+    hidden: true,
+    meta: {
+      title: '',
+      icon: '',
+    }
   },
 
   {
     path: '/login',
     name: 'Login',
     component: Login,
+    hidden: false,
     meta: {
       title: '登陆',
       icon: 'el-icon-setting',
-    }
+    },
+    children: [
+      {
+        path: '/child',
+        name: 'child',
+        hidden: false,
+        meta:{
+          title:'子菜单',
+          icon:''
+        }
+      }
+    ]
   },
 
   {
     path: '/home',
     name: 'Home',
+    hidden: false,
     component: () => import('@/views/home/index.vue'),
     meta: {
       title: '主页',
       icon: 'el-icon-s-home',
     },
-  //   children: [
-  //     {path: '/child',
-  //     name: 'child'}
-  // ]
+    children: [
+      {
+        path: '/child',
+        name: 'child',
+        hidden: false,
+        meta:{
+          title:'子菜单',
+          icon:''
+        },
+        children: [
+          {
+            path: '/child',
+            name: 'child',
+            hidden: false,
+            meta:{
+              title:'子菜单',
+              icon:''
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
 

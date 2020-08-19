@@ -1,19 +1,21 @@
 <template>
   <div>
-    <template v-for="item in routes">
-      <template v-if="item.children && item.children.length">
+    <template v-for="item in list">
+      <template v-if="item.children && item.children.length>0 && !item.hidden">
         <el-submenu :index="item.path" :key="item.path">
           <template slot="title">
-            <!-- <i :class="item.meta.icon"></i> -->
-            <span>{{ item.name }}</span>
+            <i :class="item.meta.icon"></i>
+            <span>{{ item.meta.title }}</span>
           </template>
+          
           <AsideChild :list="item.children" />
+
         </el-submenu>
       </template>
-      <template v-if="!item.children">
+      <template v-if="!item.children && !item.hidden">
         <el-menu-item :key="item.path" :index="item.path">
-          <!-- <i :class="item.meta.icon"></i> -->
-          <span slot="title">{{ item.name }}</span>
+          <i :class="item.meta.icon"></i>
+          <span slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </template>
     </template>
@@ -25,24 +27,18 @@ export default {
   name: "AsideChild",
   data() {
     return {
-      routes: this.$router.options.routes,
-      a: [1,2,3]
+      // routes: {...this.$router.options.routes}
     };
   },
-  created() {
-    for (var i in this.routes) {
-      console.log(i.name);
-    };
-    console.log(this.routes);
+  props: {
+    list: {
+      type: Array,
+      required: true
+    }
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.el-menu {
-  border-right: 0px solid;
-  .el-menu-item {
-    margin-left: 10px;
-  }
-}
+
 </style>
