@@ -9,7 +9,11 @@
     </el-header>
     <el-container>
       <el-aside width="200px">
-        <side-bar></side-bar>
+        <div class="fold" @click="fold_click">
+          <i class="el-icon-s-fold" v-if="fold"></i>
+          <i class="el-icon-s-unfold" v-else></i>
+        </div>
+        <side-bar :fold="fold"></side-bar>
       </el-aside>
       <el-main>Main</el-main>
     </el-container>
@@ -17,22 +21,29 @@
 </template>
 
 <script>
-import SideBar from '@/views/sidebar/index.vue'
+import SideBar from "@/views/sidebar/index.vue";
 
 export default {
   name: "home",
   data() {
-    return {};
+    return {
+      fold: true,
+    };
   },
   components: {
-    SideBar
+    SideBar,
   },
   methods: {
+    // 退出登录
     cancel_click() {
       window.sessionStorage.removeItem("token");
       this.$router.push("login");
-      this.$message.warning('您已退出系统！')
+      this.$message.warning("您已退出系统！");
     },
+    // 折叠导航栏
+    fold_click(){
+
+    }
   },
 };
 </script>
@@ -65,6 +76,18 @@ export default {
     color: #fff;
     text-align: center;
     line-height: 200px;
+    .fold {
+      height: 30px;
+      background-color: #494e5e;
+      &:hover {
+        background-color: #292c36;
+      }
+      .el-icon-s-fold {
+        display: block;
+        line-height: 30px;
+        font-size: 20px;
+      }
+    }
   }
   .el-main {
     background-color: #eaedf1;

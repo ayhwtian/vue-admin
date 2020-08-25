@@ -8,15 +8,15 @@
     text-color="#fff"
     active-text-color="#409efe"
     unique-opened
+    :collapse="fold"
   >
-    <!-- <aside-child :list="menulist"/> -->
     <aside-child :list="menulist" />
   </el-menu>
 </template>
 
 <script>
-// import AsideChild from './item.vue'
-import AsideChild from "./asidechild.vue";
+import AsideChild from "./item.vue";
+// import AsideChild from "./asidechild.vue";
 
 export default {
   name: "SideBar",
@@ -25,10 +25,13 @@ export default {
       menulist: [],
     };
   },
+  props: {
+    fold: false
+  },
   created() {
     // 后台api获取菜单
-    // this.getMenuList();
-    this.convertMenuList();
+    this.getMenuList();
+    // this.convertMenuList();
   },
   components: {
     AsideChild,
@@ -48,17 +51,20 @@ export default {
     },
     // 转换Object为数组
     async convertMenuList() {
-      this.menulist = await this.$router.options.routes
+      this.menulist = await this.$router.options.routes;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-::v-deep .el-menu {
-  border-right: 0px solid;
+.el-menu {
+  border-right: none;
+  
   .el-menu-item {
-    span {margin-left: 20px;}
+    span {
+      margin-left: 20px;
+    }
   }
 }
 </style>

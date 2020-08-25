@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <fragment>
     <template v-for="item in list">
       <template v-if="item.children && item.children.length > 0">
         <el-submenu :index="item.id+''" :key="item.id">
           <template slot="title">
-            <i :class="item.icon"></i>
+            <!-- <i :class="item.icon"></i> -->
+            <i class="el-icon-location"></i>
             <span>{{ item.authName }}</span>
           </template>
           <AsideChild :list="item.children" />
@@ -17,7 +18,7 @@
         </el-menu-item>
       </template>
     </template>
-  </div>
+  </fragment>
 </template>
 
 <script>
