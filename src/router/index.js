@@ -19,22 +19,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    hidden: false,
+    hidden: true,
     meta: {
       title: '登陆',
       icon: 'el-icon-setting',
     },
-    children: [
-      {
-        path: '/child',
-        name: 'child',
-        hidden: false,
-        meta:{
-          title:'子菜单',
-          icon:''
-        }
-      }
-    ]
   },
 
   {
@@ -46,26 +35,74 @@ const routes = [
       title: '主页',
       icon: 'el-icon-s-home',
     },
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        hidden: true,
+        component: () => import('@/views/welcome/index'),
+        meta: {
+          title: '欢迎页',
+          icon: ''
+        },
+      },
+
+      {
+        path: '/users',
+        name: '用户列表',
+        hidden: false,
+        component: () => import('@/views/user/index'),
+        meta: {
+          title: '用户列表',
+          icon: ''
+        }
+      },
+      {
+        path: '/roles',
+        name: '角色列表',
+        hidden: false,
+        component: () => import('@/views/permission/roles/index'),
+        meta: {
+          title: '角色列表',
+          icon: ''
+        }
+      },
+
+      {
+        path: '/rights',
+        name: '权限列表',
+        hidden: false,
+        component: () => import('@/views/permission/rights/index'),
+        meta: {
+          title: '权限列表',
+          icon: ''
+        }
+      },
+      
+    ]
+  },
+
+
+  // 测试用的数据无意义
+  {
+    path: '/user',
+    name: 'User',
+    hidden: false,
+
+    meta: {
+      title: '用户',
+      icon: 'el-icon-s-home',
+    },
     children: [
       {
         path: '/child',
         name: 'child',
         hidden: false,
-        meta:{
-          title:'子菜单',
-          icon:''
+        meta: {
+          title: '子菜单',
+          icon: ''
         },
-        children: [
-          {
-            path: '/child',
-            name: 'child',
-            hidden: false,
-            meta:{
-              title:'子菜单',
-              icon:''
-            }
-          }
-        ]
       }
     ]
   }

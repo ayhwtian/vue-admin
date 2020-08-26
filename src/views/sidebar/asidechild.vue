@@ -7,9 +7,8 @@
             <i :class="item.meta.icon"></i>
             <span>{{ item.meta.title }}</span>
           </template>
-          
-          <AsideChild :list="item.children" />
 
+          <AsideChild :list="item.children" />
         </el-submenu>
       </template>
       <template v-if="!item.children && !item.hidden">
@@ -27,18 +26,24 @@ export default {
   name: "AsideChild",
   data() {
     return {
-      // routes: {...this.$router.options.routes}
     };
   },
   props: {
     list: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 };
 </script>
 
 <style lang='scss' scoped>
-
+.el-menu {
+  border-right: 0px solid;
+  .el-submenu {
+    ::v-deep .el-submenu__title {
+      padding: 0 90px;
+    }
+  }
+}
 </style>

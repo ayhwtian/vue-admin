@@ -2,9 +2,12 @@
   <fragment>
     <template v-for="item in list">
       <template v-if="item.children && item.children.length > 0">
-        <el-submenu :index="item.id+''" :key="item.id">
+        <el-submenu :index="'/' + item.path" :key="item.id">
           <template slot="title">
+            <!-- 正常使用从后台获取icon图标 -->
             <!-- <i :class="item.icon"></i> -->
+
+            <!-- 临时使用的固定图标 -->
             <i class="el-icon-location"></i>
             <span>{{ item.authName }}</span>
           </template>
@@ -12,7 +15,7 @@
         </el-submenu>
       </template>
       <template v-if="item.children.length == 0">
-        <el-menu-item :key="item.id" :index="item.id+''">
+        <el-menu-item :key="item.id" :index="'/' + item.path">
           <i :class="item.icon"></i>
           <span slot="title">{{ item.authName }}</span>
         </el-menu-item>
@@ -30,8 +33,8 @@ export default {
   props: {
     list: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 };
 </script>
@@ -40,7 +43,16 @@ export default {
 .el-menu {
   border-right: 0px solid;
   .el-menu-item {
-    margin-left: 10px;
+    background-color: #202d3d !important;
+    &:hover {
+      background-color: #19232e !important;
+    }
+  }
+  .el-submenu {
+    
+   ::v-deep .el-submenu__title {
+      padding: 0 90px;
+    }
   }
 }
 </style>

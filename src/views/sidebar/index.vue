@@ -1,14 +1,16 @@
 <template>
   <el-menu
-    default-active="2"
+    :default-active="$route.path"
     class="el-menu-vertical-demo"
     @open="handleOpen"
-    @close="handleClose"
-    background-color="#333744"
+    @select="handleSelect"
+    background-color="#304155"
     text-color="#fff"
     active-text-color="#409efe"
     unique-opened
+    :collapse-transition="false"
     :collapse="fold"
+    router
   >
     <aside-child :list="menulist" />
   </el-menu>
@@ -23,10 +25,11 @@ export default {
   data() {
     return {
       menulist: [],
+      breadcrumb: '',
     };
   },
   props: {
-    fold: false
+    fold: false,
   },
   created() {
     // 后台api获取菜单
@@ -37,19 +40,45 @@ export default {
     AsideChild,
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    handleOpen(index, indexPath) {
+      this.menulist.forEach((item) => {
+        // console.log(item.authName, item.path, index);
+        if (index === "/" + item.path) {
+          // console.log(item.authName);
+          this.breadcrumb = item.authName
+        }
+      });
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleSelect(index, indexPath) {
+      this.$store.commit({
+        type: "clearBreadCrumb",
+        item: [],
+      });
+      this.handleOpen();
+      this.menulist.forEach((item) => {
+        item.children.forEach((itemChild) => {
+          if (
+            this.$store.state.breadcrumbList.indexOf(itemChild.authName) === -1
+          ) {
+            if (index === "/" + itemChild.path) {
+              const breadcrumbList = [this.breadcrumb, itemChild.authName];
+              console.log(breadcrumbList);
+              this.$store.commit({
+                type: "updateBreadcrumb",
+                item: breadcrumbList,
+              });
+            }
+          }
+        });
+      });
+      console.log(this.$store.state.breadcrumbList);
     },
     // 后台获取
     async getMenuList() {
       const { data: res } = await this.$http.get("menus");
-      // console.log(res);
       this.menulist = res.data;
     },
-    // 转换Object为数组
+    // 从路由获取数据，转换Object为数组
     async convertMenuList() {
       this.menulist = await this.$router.options.routes;
     },
@@ -60,11 +89,5 @@ export default {
 <style lang="scss" scoped>
 .el-menu {
   border-right: none;
-  
-  .el-menu-item {
-    span {
-      margin-left: 20px;
-    }
-  }
 }
 </style>
