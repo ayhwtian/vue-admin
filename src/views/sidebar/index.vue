@@ -34,6 +34,7 @@ export default {
   created() {
     // 后台api获取菜单
     this.getMenuList();
+    
     // this.convertMenuList();
   },
   components: {
@@ -54,7 +55,6 @@ export default {
         type: "clearBreadCrumb",
         item: [],
       });
-      this.handleOpen();
       this.menulist.forEach((item) => {
         item.children.forEach((itemChild) => {
           if (
@@ -62,7 +62,7 @@ export default {
           ) {
             if (index === "/" + itemChild.path) {
               const breadcrumbList = [this.breadcrumb, itemChild.authName];
-              console.log(breadcrumbList);
+              // console.log(breadcrumbList);
               this.$store.commit({
                 type: "updateBreadcrumb",
                 item: breadcrumbList,
@@ -71,7 +71,8 @@ export default {
           }
         });
       });
-      console.log(this.$store.state.breadcrumbList);
+      console.log(this.$route.matched);
+      // console.log(this.$store.state.breadcrumbList);
     },
     // 后台获取
     async getMenuList() {
