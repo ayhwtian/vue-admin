@@ -51,10 +51,12 @@ export default {
       });
     },
     handleSelect(index, indexPath) {
+      // 在点击菜单后先清空store中的面包屑内容，便于下次填充新的内容
       this.$store.commit({
         type: "clearBreadCrumb",
         item: [],
       });
+      // 开始给store中填充面包屑内容
       this.menulist.forEach((item) => {
         item.children.forEach((itemChild) => {
           if (
@@ -88,6 +90,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 去掉左侧菜单的右边框的1px solid的像素实现右侧对齐
 .el-menu {
   border-right: none;
 }

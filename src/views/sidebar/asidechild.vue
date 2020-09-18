@@ -1,5 +1,7 @@
 <template>
   <fragment>
+    <!-- 这是从前端路由获取菜单列表的方式，我参考大佬们的构想应该还有一步从后端动态获取路由，然后和前端固定路由合并，生成一个新的路由表
+    再根据这个新的路由表生成菜单，我要努力实现这个功能，这样就把动态获取后端路由和前端完美合并成一个代码了 -->
     <template v-for="item in list">
       <template v-if="item.children && item.children.length>0 && !item.hidden">
         <el-submenu :index="item.path" :key="item.path">
